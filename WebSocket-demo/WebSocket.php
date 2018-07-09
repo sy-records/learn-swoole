@@ -28,7 +28,9 @@ $server->on('message', function (swoole_websocket_server $server, $frame) use (&
 $server->on('close', function ($ser, $fd) use (&$clientFds) {
 	# echo "client {$fd} closed\n";
 	# 关闭会话 销毁标识fd
-	unset($clientFds[$fd]);
+	# 根据value 去数组中找对应的key
+	$res = array_search($fd, $clientFds, true);
+	unset($clientFds[$res]);
 });
 # 启动websocket服务
 $server->start();
