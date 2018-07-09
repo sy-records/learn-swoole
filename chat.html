@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WebSocket聊天室</title>
+</head>
+<body>
+	<div id="main" style="width:600px;height: 200px; overflow: auto;border: solid 2px black;">
+
+	</div>
+	<textarea id="textarea"></textarea>
+	<br/>
+	<input type="button" value="发送数据" onclick="send()">
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	 <script type="text/javascript">
+	 		var name =prompt("请输入您的昵称","匿名者"); //弹出input框
+	       // 打开一个 web socket
+			var ws = new WebSocket("ws://118.25.224.221:9501");
+
+			ws.onopen = function() {
+				console.log("连接成功");
+			};
+
+			//收到消息 触发回调
+			ws.onmessage = function (evt) { 
+				var data = evt.data;
+				console.log("收到socket服务消息，内容：" + data);
+				$('#main').append("<p>" + data + "</p>");
+			};
+	        
+			function send() {
+				var data = document.getElementById('textarea').value;
+				ws.send(name+ ":"+ data);
+			}
+
+	       ws.onclose = function() { 
+	          // 关闭 websocket
+	          console.log("连接已关闭..."); 
+	       };
+      </script>
+</body>
+</html>
