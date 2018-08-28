@@ -22,20 +22,20 @@
 			};
 
 			//收到消息 触发回调
-			ws.onmessage = function (evt) { 
+			ws.onmessage = function (evt) {
 				var data = evt.data;
 				console.log("收到socket服务消息，内容：" + data);
 				$('#main').append("<p>" + data + "</p>");
 			};
-	        
+
 			function send() {
 				var data = document.getElementById('textarea').value;
 				ws.send(name+ ":"+ data);
 			}
 
-	       ws.onclose = function() { 
+	       ws.onclose = function() {
 	          // 关闭 websocket
-	          console.log("连接已关闭..."); 
+	          console.log("连接已关闭...");
 	       };
       </script>
 </body>
