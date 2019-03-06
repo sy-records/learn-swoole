@@ -11,3 +11,9 @@ cli_set_process_title('swoole_server');
 $pid = ’‘；
 // 其他信号见http://php.net/manual/zh/pcntl.constants.php
 posix_kill($pid, SIGKILL);
+
+// 获取fpm进程id
+ps -ef|grep php-fpm|grep -v grep|awk '{print $2}'
+
+// 获取fpm进程个数
+ps -ef|grep php-fpm|grep -v grep|wc -l
